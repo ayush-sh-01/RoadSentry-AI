@@ -1,0 +1,28 @@
+# Virtual environments
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Model weights
+*.pt
+*.pth
+*.onnx
+
+# Data & Temp files
+data/snapshots/*.jpg
+data/test_videos/*.mp4
+!data/test_videos/demo_traffic.mp4
+data/incident_logs.csv
+data/uploads/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

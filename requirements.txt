@@ -1,0 +1,28 @@
+# RoadSentry AI Dependencies
+# Compatible with Python 3.10 / 3.11 / 3.12
+
+# Core Computer Vision & Deep Learning
+torch>=2.2.0
+torchvision>=0.17.0
+ultralytics>=8.1.0
+opencv-python>=4.9.0
+
+# Numerical Computing & Signal Math
+numpy>=1.24.0,<2.0.0
+scipy>=1.11.0
+pandas>=2.1.0
+
+# Dashboard, Visualization & Charting
+streamlit>=1.32.0
+plotly>=5.20.0
+matplotlib>=3.8.0
+
+# Model Backbones & Image Processing
+timm>=0.9.12
+pillow>=10.2.0
+lapx>=0.5.5
+
+# Network Streams, APIs & Config
+requests>=2.31.0
+pyyaml>=6.0.1
+

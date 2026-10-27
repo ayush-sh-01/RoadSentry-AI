@@ -1,0 +1,97 @@
+# RoadSentry AI Configuration Settings
+
+model:
+  detection_model: "yolov8n.pt"  # Options: yolov8n.pt, yolov8s.pt
+  confidence_threshold: 0.20
+  iou_threshold: 0.65
+  # Target COCO vehicle classes: 1: bicycle, 2: car, 3: motorcycle, 5: bus, 7: truck
+  target_classes: [1, 2, 3, 5, 7]
+  device: "auto"  # 'cuda', 'cpu', or 'auto'
+
+tracker:
+  tracker_type: "bytetrack.yaml"
+  track_high_thresh: 0.40
+  track_low_thresh: 0.08
+  new_track_thresh: 0.50
+  track_buffer: 30
+  match_thresh: 0.8
+
+density:
+  low_threshold: 2      # vehicle count <= 2 is LOW
+  medium_threshold: 4   # 3-4 is MEDIUM, >= 5 or high road occupancy is HIGH
+  # Optional default normalized ROI polygons [[x1,y1], [x2,y2], ...]
+  default_roi:
+    - [0.1, 0.4]
+    - [0.9, 0.4]
+    - [1.0, 0.95]
+    - [0.0, 0.95]
+
+heatmap:
+  decay_factor: 0.96    # Temporal decay per frame (0.90 to 0.99)
+  gaussian_kernel: 31   # Kernel size for centroid blur
+  sigma: 15             # Gaussian sigma
+
+accident_detector:
+  iou_overlap_threshold: 0.28       # Pairwise bounding box IoU indicating collision
+  speed_drop_ratio: 0.70            # Speed reduction >= 70%
+  min_pre_speed: 4.0                # Minimum speed before event in pixels/frame
+  persistence_frames: 6             # Consecutive frames anomaly must hold
+  cooldown_frames: 45               # Frames before re-triggering alert for same track
+  # Off-Road Boundary Breach & Single-Vehicle Barrier Crash Settings
+  enable_offroad_breach: true       # Detect single-vehicle crashes leaving the road
+  offroad_min_speed: 3.5            # Min moving speed before leaving road (px/frame)
+  offroad_stop_speed: 1.2           # Speed below which vehicle is considered stopped/crashed (px/frame)
+  offroad_persistence_frames: 5     # Consecutive frames vehicle must remain stopped outside boundary
+  offroad_cooldown_frames: 60       # Frames before re-triggering alert for same vehicle track
+
+
+emergency:
+  confidence_threshold: 0.65
+  # Optical hue bounds for red/blue siren flash heuristics (in HSV space)
+  red_lower1: [0, 100, 100]
+  red_upper1: [10, 255, 255]
+  red_lower2: [170, 100, 100]
+  red_upper2: [180, 255, 255]
+  blue_lower: [100, 150, 100]
+  blue_upper: [140, 255, 255]
+
+logging:
+  incident_csv: "data/incident_logs.csv"
+  snapshot_dir: "data/snapshots"
+
+# Feature 2 & 3: Monitored Road Location & Map Settings
+location:
+  camera_id: "CAM-01"
+  junction_name: "Central Ring Road - Hospital Junction"
+  latitude: 12.9716
+  longitude: 77.5946
+  is_simulated_gps: true  # Clearly labels that coordinates are simulated CCTV anchor if camera lacks GPS
+
+# Feature 3: Emergency Route & Intersection Assistance Settings
+route_assistance:
+  enabled: true
+  priority_corridor: "North Approach -> Central Ring -> East Hospital Lane"
+  green_wave_seconds: 35
+  detour_recommendation: "Civilian traffic: Divert to 80ft Outer Bypass"
+
+# Feature 4: Accident SOS Notification Settings (Configure your Email & Phone here)
+sos:
+  enabled: true
+  # >>> ENTER YOUR RECIPIENT EMAIL AND PHONE NUMBER BELOW <<<
+  recipient_email: "ayuayu7697@gmail.com"  # Change to your email address (e.g. yourname@gmail.com)
+  recipient_phone: "+91-9244514953"                 # Change to your phone number
+  smtp_server: "smtp.gmail.com"
+  smtp_port: 587
+  smtp_user: ""                                     # Your sender email (leave empty for simulation mode)
+  smtp_password: ""                                 # Your app password (leave empty for simulation mode)
+  cooldown_seconds: 45                              # Minimum seconds between repeated SOS email alerts
+
+# Live Traffic Camera Stream Configuration
+live_stream:
+  stream_url: "https://cctv.austintexas.gov/m3u8/330.m3u8"  # Public HLS stream URL or local RTSP/snapshot URL
+  stream_type: "auto"                                      # 'auto', 'hls', 'rtsp', 'snapshot'
+  reconnect_timeout_seconds: 5.0                           # Auto-reconnection retry timeout
+  max_reconnect_attempts: 10                               # Maximum retries before declaring offline
+  read_fps: 25                                             # Target capture rate for polling/snapshot streams
+  buffer_size: 1                                           # 1 = strictly lowest latency (drops stale frames)
+
