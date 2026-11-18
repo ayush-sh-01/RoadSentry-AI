@@ -59,400 +59,198 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Persistent theme state in session_state (default to 'dark')
-if "theme_mode" not in st.session_state:
-    st.session_state["theme_mode"] = "dark"
+# Custom High-End Sci-Fi Dark Cyberpunk CSS
+st.markdown("""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
-current_theme = st.session_state["theme_mode"]
+    html, body, [class*="css"] {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: #f8fafc;
+    }
 
-# Dynamic CSS for Dark / Light Theme Switching
-if current_theme == "light":
-    custom_css = """
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+    .stApp {
+        background: radial-gradient(circle at 15% 15%, rgba(0, 229, 255, 0.04) 0%, transparent 45%),
+                    radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
+                    #0b0f19;
+        color: #f8fafc;
+    }
 
-        html, body, [class*="css"] {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #1e293b;
-        }
+    .app-header {
+        background: linear-gradient(135deg, rgba(20, 26, 43, 0.75) 0%, rgba(15, 23, 42, 0.6) 100%);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 18px 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .app-title {
+        font-size: 26px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #f8fafc 0%, #00e5ff 60%, #38bdf8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+        margin: 0;
+    }
+    .app-subtitle {
+        font-size: 13px;
+        color: #94a3b8;
+        margin-top: 4px;
+        font-weight: 500;
+    }
 
-        .stApp {
-            background: radial-gradient(circle at 15% 15%, rgba(2, 132, 199, 0.05) 0%, transparent 45%),
-                        radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
-                        #f8fafc;
-            color: #0f172a;
-        }
+    .metric-card {
+        background: linear-gradient(145deg, rgba(26, 32, 53, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 16px 14px;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    .metric-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.6), transparent);
+    }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(0, 229, 255, 0.3);
+        box-shadow: 0 10px 28px -4px rgba(0, 229, 255, 0.15);
+    }
+    .metric-val {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 26px;
+        font-weight: 700;
+        color: #00e5ff;
+        margin-top: 6px;
+        letter-spacing: -0.5px;
+        text-shadow: 0 0 20px rgba(0, 229, 255, 0.35);
+    }
+    .metric-lbl {
+        font-size: 11px;
+        font-weight: 700;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+    .metric-sub {
+        font-size: 11px;
+        color: #cbd5e1;
+        margin-top: 5px;
+        font-weight: 500;
+    }
 
-        .app-header {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 18px 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .app-title {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #0f172a 0%, #0284c7 60%, #2563eb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            margin: 0;
-        }
-        .app-subtitle {
-            font-size: 13px;
-            color: #64748b;
-            margin-top: 4px;
-            font-weight: 500;
-        }
+    .alert-card-critical {
+        background: linear-gradient(135deg, rgba(69, 10, 20, 0.65) 0%, rgba(20, 15, 25, 0.8) 100%);
+        border: 1px solid rgba(244, 63, 94, 0.3);
+        border-left: 5px solid #f43f5e;
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 10px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 16px rgba(244, 63, 94, 0.15);
+    }
+    .alert-card-priority {
+        background: linear-gradient(135deg, rgba(8, 47, 73, 0.65) 0%, rgba(15, 23, 42, 0.8) 100%);
+        border: 1px solid rgba(0, 229, 255, 0.3);
+        border-left: 5px solid #00e5ff;
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 10px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 16px rgba(0, 229, 255, 0.15);
+    }
+    .badge-critical {
+        background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+        color: white;
+        padding: 3px 9px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+    }
+    .badge-priority {
+        background: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
+        color: #041324;
+        padding: 3px 9px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(0, 229, 255, 0.4);
+    }
 
-        .metric-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 16px 14px;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 10px -1px rgba(15, 23, 42, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #0284c7, #38bdf8);
-        }
-        .metric-card:hover {
-            transform: translateY(-2px);
-            border-color: #cbd5e1;
-            box-shadow: 0 8px 20px -2px rgba(2, 132, 199, 0.12);
-        }
-        .metric-val {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 26px;
-            font-weight: 700;
-            color: #0284c7;
-            margin-top: 6px;
-            letter-spacing: -0.5px;
-        }
-        .metric-lbl {
-            font-size: 11px;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-        .metric-sub {
-            font-size: 11px;
-            color: #475569;
-            margin-top: 5px;
-            font-weight: 500;
-        }
+    .sos-banner {
+        background: linear-gradient(145deg, rgba(22, 28, 48, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.3);
+    }
 
-        .alert-card-critical {
-            background: #fff1f2;
-            border: 1px solid #fecdd3;
-            border-left: 5px solid #e11d48;
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 8px rgba(225, 29, 72, 0.08);
-            color: #881337;
-        }
-        .alert-card-priority {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
-            border-left: 5px solid #0284c7;
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.08);
-            color: #0c4a6e;
-        }
-        .badge-critical {
-            background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
-            color: white;
-            padding: 3px 9px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.25);
-        }
-        .badge-priority {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            color: #ffffff;
-            padding: 3px 9px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
-        }
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background: rgba(15, 23, 42, 0.6);
+        padding: 6px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #94a3b8;
+        border: none !important;
+        transition: all 0.2s ease;
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, rgba(0, 229, 255, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%) !important;
+        color: #00e5ff !important;
+        border: 1px solid rgba(0, 229, 255, 0.35) !important;
+        box-shadow: 0 2px 10px rgba(0, 229, 255, 0.1);
+    }
 
-        .sos-banner {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 16px 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
-            color: #1e293b;
-        }
+    section[data-testid="stSidebar"] {
+        background-color: #0e1320;
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    section[data-testid="stSidebar"] h1, 
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3 {
+        color: #f1f5f9;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+    }
 
-        .stTabs [data-baseweb="tab-list"] {
-            gap: 8px;
-            background: #f1f5f9;
-            padding: 6px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-        }
-        .stTabs [data-baseweb="tab"] {
-            border-radius: 8px;
-            padding: 8px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #64748b;
-            border: none !important;
-            transition: all 0.2s ease;
-        }
-        .stTabs [aria-selected="true"] {
-            background: #ffffff !important;
-            color: #0284c7 !important;
-            border: 1px solid #cbd5e1 !important;
-            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
-        }
-
-        section[data-testid="stSidebar"] {
-            background-color: #ffffff;
-            border-right: 1px solid #e2e8f0;
-        }
-        section[data-testid="stSidebar"] h1, 
-        section[data-testid="stSidebar"] h2, 
-        section[data-testid="stSidebar"] h3 {
-            color: #0f172a;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
-
-        div.stButton > button {
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 13px;
-            letter-spacing: 0.3px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            color: #0f172a;
-            transition: all 0.25s ease;
-        }
-        div.stButton > button:hover {
-            transform: translateY(-1px);
-            background: #f8fafc;
-            border-color: #0284c7;
-            color: #0284c7;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
-        }
-    </style>
-    """
-else:
-    custom_css = """
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
-
-        html, body, [class*="css"] {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #f8fafc;
-        }
-
-        .stApp {
-            background: radial-gradient(circle at 15% 15%, rgba(0, 229, 255, 0.04) 0%, transparent 45%),
-                        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
-                        #0b0f19;
-            color: #f8fafc;
-        }
-
-        .app-header {
-            background: linear-gradient(135deg, rgba(20, 26, 43, 0.75) 0%, rgba(15, 23, 42, 0.6) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 18px 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .app-title {
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #f8fafc 0%, #00e5ff 60%, #38bdf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            margin: 0;
-        }
-        .app-subtitle {
-            font-size: 13px;
-            color: #94a3b8;
-            margin-top: 4px;
-            font-weight: 500;
-        }
-
-        .metric-card {
-            background: linear-gradient(145deg, rgba(26, 32, 53, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 16px 14px;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.6), transparent);
-        }
-        .metric-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(0, 229, 255, 0.3);
-            box-shadow: 0 10px 28px -4px rgba(0, 229, 255, 0.15);
-        }
-        .metric-val {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 26px;
-            font-weight: 700;
-            color: #00e5ff;
-            margin-top: 6px;
-            letter-spacing: -0.5px;
-            text-shadow: 0 0 20px rgba(0, 229, 255, 0.35);
-        }
-        .metric-lbl {
-            font-size: 11px;
-            font-weight: 700;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-        .metric-sub {
-            font-size: 11px;
-            color: #cbd5e1;
-            margin-top: 5px;
-            font-weight: 500;
-        }
-
-        .alert-card-critical {
-            background: linear-gradient(135deg, rgba(69, 10, 20, 0.65) 0%, rgba(20, 15, 25, 0.8) 100%);
-            border: 1px solid rgba(244, 63, 94, 0.3);
-            border-left: 5px solid #f43f5e;
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 16px rgba(244, 63, 94, 0.15);
-        }
-        .alert-card-priority {
-            background: linear-gradient(135deg, rgba(8, 47, 73, 0.65) 0%, rgba(15, 23, 42, 0.8) 100%);
-            border: 1px solid rgba(0, 229, 255, 0.3);
-            border-left: 5px solid #00e5ff;
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 16px rgba(0, 229, 255, 0.15);
-        }
-        .badge-critical {
-            background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
-            color: white;
-            padding: 3px 9px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
-        }
-        .badge-priority {
-            background: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
-            color: #041324;
-            padding: 3px 9px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(0, 229, 255, 0.4);
-        }
-
-        .sos-banner {
-            background: linear-gradient(145deg, rgba(22, 28, 48, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 16px 20px;
-            margin-bottom: 16px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.3);
-        }
-
-        .stTabs [data-baseweb="tab-list"] {
-            gap: 8px;
-            background: rgba(15, 23, 42, 0.6);
-            padding: 6px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .stTabs [data-baseweb="tab"] {
-            border-radius: 8px;
-            padding: 8px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #94a3b8;
-            border: none !important;
-            transition: all 0.2s ease;
-        }
-        .stTabs [aria-selected="true"] {
-            background: linear-gradient(135deg, rgba(0, 229, 255, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%) !important;
-            color: #00e5ff !important;
-            border: 1px solid rgba(0, 229, 255, 0.35) !important;
-            box-shadow: 0 2px 10px rgba(0, 229, 255, 0.1);
-        }
-
-        section[data-testid="stSidebar"] {
-            background-color: #0e1320;
-            border-right: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        section[data-testid="stSidebar"] h1, 
-        section[data-testid="stSidebar"] h2, 
-        section[data-testid="stSidebar"] h3 {
-            color: #f1f5f9;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
-
-        div.stButton > button {
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 13px;
-            letter-spacing: 0.3px;
-            transition: all 0.25s ease;
-        }
-        div.stButton > button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 18px rgba(0, 229, 255, 0.25);
-        }
-    </style>
-    """
-
-st.markdown(custom_css, unsafe_allow_html=True)
+    div.stButton > button {
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.3px;
+        transition: all 0.25s ease;
+    }
+    div.stButton > button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 18px rgba(0, 229, 255, 0.25);
+    }
+</style>
+""", unsafe_allow_html=True)
 
 
 def load_settings() -> Dict[str, Any]:
@@ -540,19 +338,13 @@ def create_traffic_map(
         bearing=0
     )
 
-    is_light = st.session_state.get("theme_mode", "dark") == "light"
-    map_style = "light" if is_light else "dark"
-    tooltip_bg = "#ffffff" if is_light else "#1e2130"
-    tooltip_color = "#0f172a" if is_light else "#f8fafc"
-    tooltip_border = "1px solid #e2e8f0" if is_light else "none"
-
     return pdk.Deck(
         layers=layers,
         initial_view_state=view_state,
-        map_style=map_style,
+        map_style="dark",
         tooltip={
             "html": "<b>{name}</b><br/>Traffic Density: <b>{density}</b> ({vehicles} vehicles)<br/>GPS: {status}",
-            "style": {"backgroundColor": tooltip_bg, "color": tooltip_color, "fontSize": "12px", "border": tooltip_border}
+            "style": {"backgroundColor": "#1e2130", "color": "#f8fafc", "fontSize": "12px", "border": "1px solid rgba(0,229,255,0.3)"}
         }
     )
 
@@ -566,31 +358,21 @@ def main():
     density_cfg = settings.get("density", {})
     default_roi = density_cfg.get("default_roi", None)
 
-    # Top Navigation Bar with Header & Theme Toggle Button
-    top_col1, top_col2 = st.columns([6, 1])
-
-    with top_col1:
-        st.markdown("""
-        <div class="app-header">
-            <div>
-                <div class="app-title">🚦 RoadSentry AI <span style="font-size:16px; font-weight:600; color:#0284c7; margin-left:8px; border:1px solid rgba(2,132,199,0.3); padding:3px 10px; border-radius:20px; background:rgba(2,132,199,0.08);">AUTONOMOUS SUITE</span></div>
-                <div class="app-subtitle">Real-time Vision Analytics • Adaptive Congestion Heatmap • Emergency Priority Corridors • Automated Accident SOS</div>
-            </div>
-            <div style="text-align: right;">
-                <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(16,185,129,0.12); color:#10b981; padding:5px 12px; border-radius:8px; font-size:12px; font-weight:700; border:1px solid rgba(16,185,129,0.3);">
-                    <span style="width:8px; height:8px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981;"></span>
-                    SYSTEM ACTIVE
-                </span>
-            </div>
+    # Top Sci-Fi Header Banner (Pure Dark Cyberpunk)
+    st.markdown("""
+    <div class="app-header">
+        <div>
+            <div class="app-title">🚦 RoadSentry AI <span style="font-size:16px; font-weight:600; color:#00e5ff; margin-left:8px; border:1px solid rgba(0,229,255,0.4); padding:3px 10px; border-radius:20px; background:rgba(0,229,255,0.1);">AUTONOMOUS SUITE</span></div>
+            <div class="app-subtitle">Real-time Vision Analytics • Adaptive Congestion Heatmap • Emergency Priority Corridors • Automated Accident SOS</div>
         </div>
-        """, unsafe_allow_html=True)
-
-    with top_col2:
-        is_dark = st.session_state["theme_mode"] == "dark"
-        theme_btn_label = "☀️ Light" if is_dark else "🌙 Dark"
-        if st.button(theme_btn_label, use_container_width=True, help="Toggle between Light and Dark visual appearance"):
-            st.session_state["theme_mode"] = "light" if is_dark else "dark"
-            st.rerun()
+        <div style="text-align: right;">
+            <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(0,230,118,0.12); color:#00e676; padding:5px 12px; border-radius:8px; font-size:12px; font-weight:700; border:1px solid rgba(0,230,118,0.3);">
+                <span style="width:8px; height:8px; border-radius:50%; background:#00e676; box-shadow:0 0 10px #00e676;"></span>
+                SYSTEM ACTIVE
+            </span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     # ---------------------------------------------------------
     # SIDEBAR CONTROLS
@@ -885,12 +667,12 @@ def main():
 
     # Initial Route Assist State
     emergency_banner_placeholder.markdown("""
-    <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+    <div style="background-color: #1a1e2e; border: 1px solid #2d3250; border-radius: 8px; padding: 12px 16px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <b style="color: #1e293b;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
-            <span style="background-color: #e2e8f0; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">STANDBY</span>
+            <b style="color: #cbd5e1;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
+            <span style="background-color: #334155; color: #cbd5e1; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">STANDBY</span>
         </div>
-        <div style="font-size: 12px; color: #64748b; margin-top: 6px;">
+        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">
             Standard 45s cyclic timing. Priority green corridor on standby for ambulances or police.
         </div>
     </div>
@@ -900,11 +682,11 @@ def main():
     sos_status_banner_placeholder.markdown(f"""
     <div class="sos-banner">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <b style="color: #0f172a;">📡 SOS DISPATCHER: ACTIVE</b>
-            <span style="background-color: #10b981; color: #ffffff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">READY</span>
+            <b style="color: #e2e8f0;">📡 SOS DISPATCHER: ACTIVE</b>
+            <span style="background-color: #00e676; color: #0b1120; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">READY</span>
         </div>
-        <div style="font-size: 12px; color: #64748b; margin-top: 6px;">
-            Target Emergency Mobile: <b style="color: #0284c7; font-size: 13px;">{contact_phone}</b><br>
+        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">
+            Target Emergency Mobile: <b style="color: #00e5ff; font-size: 13px;">{contact_phone}</b><br>
             <i>Accidents immediately dispatch automated SOS SMS with live GPS anchor and vehicle telemetry.</i>
         </div>
     </div>
@@ -1068,22 +850,22 @@ def main():
                 bus_pct = int((bus_cnt / total_v) * 100)
 
                 category_breakdown_placeholder.markdown(f"""
-                <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); color: #1e293b;">
+                <div style="background-color: #1a1e2e; border: 1px solid #2d3250; border-radius: 8px; padding: 12px 16px;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🚗 <b>Passenger Cars:</b> {car_cnt}</span>
-                        <span style="color: #0284c7; font-weight: 600;">{car_pct}%</span>
+                        <span style="color: #00e5ff; font-weight: 600;">{car_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🏍️ <b>Motorcycles & Two-Wheelers:</b> {bike_cnt}</span>
-                        <span style="color: #0284c7; font-weight: 600;">{bike_pct}%</span>
+                        <span style="color: #00e5ff; font-weight: 600;">{bike_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🚛 <b>Commercial Trucks:</b> {truck_cnt}</span>
-                        <span style="color: #0284c7; font-weight: 600;">{truck_pct}%</span>
+                        <span style="color: #00e5ff; font-weight: 600;">{truck_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; font-size: 13px;">
                         <span>🚌 <b>Public Transit Buses:</b> {bus_cnt}</span>
-                        <span style="color: #0284c7; font-weight: 600;">{bus_pct}%</span>
+                        <span style="color: #00e5ff; font-weight: 600;">{bus_pct}%</span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -1094,33 +876,33 @@ def main():
             route_data = telemetry.get("route_assistance", {})
             if route_data.get("is_active"):
                 emergency_banner_placeholder.markdown(f"""
-                <div style="background-color: #f0f9ff; border: 2px solid #0284c7; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(2,132,199,0.1);">
+                <div style="background-color: #1c2b3e; border: 2px solid #00e5ff; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span class="badge-priority">PRIORITY CORRIDOR ACTIVE</span>
-                        <b style="color: #0284c7; font-size: 16px;">{route_data.get('vehicle_type')} #{route_data.get('vehicle_id')}</b>
+                        <b style="color: #00e5ff; font-size: 16px;">{route_data.get('vehicle_type')} #{route_data.get('vehicle_id')}</b>
                     </div>
-                    <div style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #0f172a;">
+                    <div style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #f8fafc;">
                         🚦 {route_data.get('intersection_action')}
                     </div>
-                    <div style="margin-top: 8px; font-size: 13px; color: #334155;">
+                    <div style="margin-top: 8px; font-size: 13px; color: #cbd5e1;">
                         🛣️ <b>Priority Corridor:</b> {route_data.get('corridor_name')}<br>
                         ⏱️ <b>Green Phase Extension:</b> {route_data.get('green_duration')}<br>
                         🛑 <b>Intersection Control:</b> {route_data.get('cross_traffic_status')}<br>
                         🏥 <b>Clear Destination:</b> {route_data.get('target_destination')}
                     </div>
-                    <div style="margin-top: 10px; padding: 8px 12px; background: #e0f2fe; border-left: 3px solid #0284c7; border-radius: 4px; font-size: 12px; color: #0369a1;">
+                    <div style="margin-top: 10px; padding: 8px 12px; background: rgba(0, 229, 255, 0.12); border-left: 3px solid #00e5ff; border-radius: 4px; font-size: 12px; color: #e2e8f0;">
                         ⚠️ <b>Civilian Detour Advisory:</b> {route_data.get('detour_advisory')}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 emergency_banner_placeholder.markdown("""
-                <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="background-color: #1a1e2e; border: 1px solid #2d3250; border-radius: 8px; padding: 12px 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <b style="color: #1e293b;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
-                        <span style="background-color: #e2e8f0; color: #475569; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">STANDBY</span>
+                        <b style="color: #cbd5e1;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
+                        <span style="background-color: #334155; color: #cbd5e1; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">STANDBY</span>
                     </div>
-                    <div style="font-size: 12px; color: #64748b; margin-top: 6px;">
+                    <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">
                         Standard 45s cyclic rotation active. Priority corridor on standby for ambulances, fire engines, or police vehicles.
                     </div>
                 </div>
@@ -1130,20 +912,20 @@ def main():
             # FEATURE 4: ACCIDENT DETECTION & SOS STATUS PANEL
             # -----------------------------------------------------
             sos_status = telemetry.get("sos_status", {})
-            sos_color = "#10b981" if sos_status.get("delivered") else "#f59e0b"
+            sos_color = "#00e676" if sos_status.get("delivered") else "#ff9100"
             sos_badge = "DELIVERED" if sos_status.get("delivered") else "STANDBY"
 
             sos_status_banner_placeholder.markdown(f"""
             <div class="sos-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <b style="color: #0f172a;">📡 SOS DISPATCH STATUS: <span style="color: {sos_color};">{sos_badge}</span></b>
-                    <span style="background-color: {sos_color}; color: #ffffff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">{sos_status.get('status', 'STANDBY')}</span>
+                    <b style="color: #e2e8f0;">📡 SOS DISPATCH STATUS: <span style="color: {sos_color};">{sos_badge}</span></b>
+                    <span style="background-color: {sos_color}; color: #0b1120; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">{sos_status.get('status', 'STANDBY')}</span>
                 </div>
-                <div style="font-size: 12px; color: #475569; margin-top: 6px;">
+                <div style="font-size: 12px; color: #cbd5e1; margin-top: 6px;">
                     {sos_status.get('message', 'Monitoring road for collision anomalies.')}
                 </div>
-                <div style="font-size: 11px; color: #64748b; margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 4px;">
-                    Target Emergency Mobile: <b style="color: #0284c7; font-size: 12px;">{contact_phone}</b>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; border-top: 1px solid #2d3250; padding-top: 4px;">
+                    Target Emergency Mobile: <b style="color: #00e5ff; font-size: 12px;">{contact_phone}</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
