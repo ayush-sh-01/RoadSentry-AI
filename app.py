@@ -186,13 +186,23 @@ st.markdown("""
         background-color: #000000 !important;
         border: 1px solid transparent !important;
     }
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #FFFFFF !important;
+    }
     .stTabs [aria-selected="true"] {
         background-color: #FFFFFF !important;
         color: #000000 !important;
         border: 1px solid #FFFFFF !important;
     }
-    .stTabs [aria-selected="true"] span, .stTabs [aria-selected="true"] div {
+    .stTabs [aria-selected="true"] span, .stTabs [aria-selected="true"] div, .stTabs [aria-selected="true"] p {
         color: #000000 !important;
+        background-color: transparent !important;
+    }
+    .stTabs [aria-selected="false"] span, .stTabs [aria-selected="false"] div, .stTabs [aria-selected="false"] p {
+        color: #FFFFFF !important;
+        background-color: transparent !important;
     }
 
     /* 7. Sidebar */
@@ -200,18 +210,20 @@ st.markdown("""
         background-color: #000000 !important;
         border-right: 1px solid #FFFFFF !important;
     }
-    section[data-testid="stSidebar"] * {
+    section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
         background-color: #000000 !important;
-        color: #FFFFFF !important;
     }
 
-    /* 8. Inputs, Selectboxes, Sliders, Tables */
+    /* 8. Inputs, Selectboxes, Checkboxes, Number Inputs */
     input, textarea, select, [data-baseweb="select"], [data-baseweb="input"], [data-baseweb="base-input"] {
         background-color: #000000 !important;
         color: #FFFFFF !important;
         border: 1px solid #FFFFFF !important;
         border-radius: 0px !important;
         box-shadow: none !important;
+    }
+    div[data-baseweb="input"] > div {
+        background-color: #000000 !important;
     }
     div[data-baseweb="popover"], div[data-baseweb="menu"], ul[role="listbox"] {
         background-color: #000000 !important;
@@ -226,36 +238,78 @@ st.markdown("""
         color: #000000 !important;
     }
 
-    /* 9. Buttons & Interactive States: White bg with Black text; Inverted on Hover */
-    div.stButton > button, div.stDownloadButton > button {
+    /* Checkbox & Radio styling */
+    [data-testid="stCheckbox"] label span:first-child {
+        background-color: #000000 !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
+    }
+    [data-testid="stCheckbox"] input:checked + div {
         background-color: #FFFFFF !important;
+    }
+    [data-testid="stCheckbox"] input:checked + div svg {
+        fill: #000000 !important;
+        stroke: #000000 !important;
+    }
+
+    /* 9. Buttons & Interactive States: STRICT Pure White bg with Pure Black text; Inverted on Hover */
+    button, [data-testid="baseButton-secondary"], [data-testid="baseButton-primary"], div.stButton > button, div.stDownloadButton > button {
+        background-color: #FFFFFF !important;
+        background-image: none !important;
         color: #000000 !important;
         border: 1px solid #FFFFFF !important;
         border-radius: 0px !important;
         font-weight: 700 !important;
         font-size: 13px !important;
         letter-spacing: 0.3px !important;
-        transition: all 0.2s ease !important;
         box-shadow: none !important;
+        outline: none !important;
+        opacity: 1 !important;
+        transition: all 0.15s ease-in-out !important;
     }
-    div.stButton > button:hover, div.stDownloadButton > button:hover {
+    button *, [data-testid="baseButton-secondary"] *, [data-testid="baseButton-primary"] *, div.stButton > button *, div.stDownloadButton > button * {
+        color: #000000 !important;
+        background-color: transparent !important;
+    }
+
+    /* Hover State: Inverted -> Pure Black bg with Pure White text and 1px solid #FFFFFF border */
+    button:hover, [data-testid="baseButton-secondary"]:hover, [data-testid="baseButton-primary"]:hover, div.stButton > button:hover, div.stDownloadButton > button:hover {
         background-color: #000000 !important;
+        background-image: none !important;
         color: #FFFFFF !important;
         border: 1px solid #FFFFFF !important;
         box-shadow: none !important;
         transform: none !important;
     }
-    div.stButton > button * {
-        color: #000000 !important;
-    }
-    div.stButton > button:hover * {
+    button:hover *, [data-testid="baseButton-secondary"]:hover *, [data-testid="baseButton-primary"]:hover *, div.stButton > button:hover *, div.stDownloadButton > button:hover * {
         color: #FFFFFF !important;
+        background-color: transparent !important;
     }
 
-    /* 10. Horizontal Rules & Borders */
+    /* Active / Focus State */
+    button:active, button:focus, [data-testid="baseButton-secondary"]:active, [data-testid="baseButton-primary"]:active {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #FFFFFF !important;
+        box-shadow: none !important;
+    }
+
+    /* 10. Horizontal Rules & Dividers */
     hr {
         border-color: #FFFFFF !important;
         border-width: 1px !important;
+    }
+
+    /* 11. Streamlit default info/warning/error banners override */
+    [data-testid="stAlert"] {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
+    }
+    [data-testid="stAlert"] * {
+        color: #FFFFFF !important;
+        background-color: transparent !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -507,7 +561,7 @@ def main():
     test_sos_btn = st.sidebar.button("🧪 Send Test SOS to My Number", help="Dispatches a test notification to verify delivery to your phone.")
 
     st.sidebar.markdown("""
-    <div style="font-size: 11px; color: #64748b; background-color: #f1f5f9; border: 1px solid #e2e8f0; padding: 8px; border-radius: 4px; margin-top: 4px;">
+    <div style="font-size: 11px; color: #FFFFFF; background-color: #000000; border: 1px solid #FFFFFF; padding: 8px; margin-top: 4px;">
         📍 <b>Permanent Config:</b> You can also save credentials permanently in <code>config/settings.yaml</code> under the <code>sos:</code> section.
     </div>
     """, unsafe_allow_html=True)
