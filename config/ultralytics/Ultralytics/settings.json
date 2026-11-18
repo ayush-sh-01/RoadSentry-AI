@@ -1,0 +1,19 @@
+{
+  "settings_version": "0.0.8",
+  "datasets_dir": "C:\\Users\\Asus\\datasets",
+  "weights_dir": "C:\\Users\\Asus\\RoadSentry-AI\\weights",
+  "runs_dir": "C:\\Users\\Asus\\RoadSentry-AI\\runs",
+  "uuid": "bff283cdcdb6abf63855cfb492979f6933fab864259245f54c21b5c3737c59e3",
+  "sync": true,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "mlflow": true,
+  "raytune": true,
+  "tensorboard": false,
+  "wandb": false,
+  "vscode_msg": true,
+  "openvino_msg": true
+}

@@ -77,14 +77,20 @@ route_assistance:
 # Feature 4: Accident SOS Notification Settings (Configure your Email & Phone here)
 sos:
   enabled: true
-  # >>> ENTER YOUR RECIPIENT EMAIL AND PHONE NUMBER BELOW <<<
-  recipient_email: "ayuayu7697@gmail.com"  # Change to your email address (e.g. yourname@gmail.com)
-  recipient_phone: "+91-9244514953"                 # Change to your phone number
+  # >>> ENTER YOUR RECIPIENT PHONE NUMBER BELOW <<<
+  recipient_phone: "+91-7697912636"                 # Change to your mobile number (e.g. +919876543210)
+  fast2sms_apikey: ""                               # Fast2SMS API key (free quick SMS route for Indian numbers)
+  twilio_account_sid: ""                            # Optional Twilio SID (for international numbers)
+  twilio_auth_token: ""                             # Optional Twilio Auth Token
+  twilio_from_number: ""                            # Optional Twilio Sender Phone Number
+  ntfy_topic: "roadsentry_917697912636"             # Instant real push notification channel to your phone (zero setup)
+  recipient_email: "ayuayu7697@gmail.com"           # Optional fallback email
   smtp_server: "smtp.gmail.com"
   smtp_port: 587
-  smtp_user: ""                                     # Your sender email (leave empty for simulation mode)
-  smtp_password: ""                                 # Your app password (leave empty for simulation mode)
-  cooldown_seconds: 45                              # Minimum seconds between repeated SOS email alerts
+  smtp_user: ""                                     # Optional sender email
+  smtp_password: ""                                 # Optional sender app password
+  cooldown_seconds: 45                              # Minimum seconds between repeated SOS alerts
+  webhook_url: ""                                   # Optional Discord / Telegram webhook URL
 
 # Live Traffic Camera Stream Configuration
 live_stream:
