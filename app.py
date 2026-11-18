@@ -59,35 +59,32 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Strict Monochrome High-Contrast Black & White CSS
+# Clean High-End Modern Light Mode CSS
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
-    /* 1. Global Reset to Pure Pitch Black & Pure White */
-    *, html, body, [class*="css"], .stApp {
+    /* 1. Global Light Base */
+    html, body, [class*="css"], .stApp {
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
-        background-color: #000000 !important;
+        background-color: #F8FAFC !important;
         background-image: none !important;
-        color: #FFFFFF !important;
+        color: #0F172A !important;
     }
 
     /* 2. Text & Headings */
-    h1, h2, h3, h4, h5, h6, p, span, label, div, a, b, strong, i, em {
-        color: #FFFFFF !important;
-    }
-    a {
-        text-decoration: underline !important;
+    h1, h2, h3, h4, h5, h6, label, div[data-testid="stMarkdownContainer"] p {
+        color: #0F172A !important;
     }
 
     /* 3. Header Banner */
     .app-header {
-        background-color: #000000 !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
+        background: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 12px !important;
         padding: 18px 24px !important;
         margin-bottom: 20px !important;
-        box-shadow: none !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
@@ -95,221 +92,202 @@ st.markdown("""
     .app-title {
         font-size: 26px !important;
         font-weight: 800 !important;
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
+        color: #0F172A !important;
         letter-spacing: -0.5px !important;
         margin: 0 !important;
     }
     .app-subtitle {
         font-size: 13px !important;
-        color: #FFFFFF !important;
+        color: #64748B !important;
         margin-top: 4px !important;
         font-weight: 500 !important;
     }
 
-    /* 4. Metric Cards & Dividers */
+    /* 4. Metric Cards */
     .metric-card {
-        background-color: #000000 !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
+        background: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 10px !important;
         padding: 16px 14px !important;
         text-align: center !important;
-        box-shadow: none !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
         position: relative !important;
-    }
-    .metric-card::before {
-        display: none !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     }
     .metric-card:hover {
-        transform: none !important;
-        border: 1px solid #FFFFFF !important;
-        box-shadow: none !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+        border-color: #CBD5E1 !important;
     }
     .metric-val {
         font-family: 'JetBrains Mono', monospace !important;
         font-size: 26px !important;
         font-weight: 700 !important;
-        color: #FFFFFF !important;
+        color: #2563EB !important;
         margin-top: 6px !important;
         letter-spacing: -0.5px !important;
-        text-shadow: none !important;
     }
     .metric-lbl {
         font-size: 11px !important;
         font-weight: 700 !important;
-        color: #FFFFFF !important;
+        color: #64748B !important;
         text-transform: uppercase !important;
         letter-spacing: 0.8px !important;
     }
     .metric-sub {
         font-size: 11px !important;
-        color: #FFFFFF !important;
+        color: #475569 !important;
         margin-top: 5px !important;
         font-weight: 500 !important;
     }
 
     /* 5. Alert & SOS Containers */
-    .alert-card-critical, .alert-card-priority, .sos-banner {
-        background-color: #000000 !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
+    .alert-card-critical {
+        background: #FEF2F2 !important;
+        border: 1px solid #FECACA !important;
+        border-left: 4px solid #DC2626 !important;
+        border-radius: 8px !important;
         padding: 14px 18px !important;
         margin-bottom: 10px !important;
-        box-shadow: none !important;
     }
-    .badge-critical, .badge-priority {
-        background-color: #FFFFFF !important;
-        color: #000000 !important;
+    .alert-card-priority {
+        background: #EFF6FF !important;
+        border: 1px solid #BFDBFE !important;
+        border-left: 4px solid #2563EB !important;
+        border-radius: 8px !important;
+        padding: 14px 18px !important;
+        margin-bottom: 10px !important;
+    }
+    .sos-banner {
+        background: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 10px !important;
+        padding: 16px 20px !important;
+        margin-bottom: 16px !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    }
+    .badge-critical {
+        background: #DC2626 !important;
+        color: #FFFFFF !important;
         padding: 3px 9px !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
+        border-radius: 4px !important;
         font-size: 11px !important;
-        font-weight: 800 !important;
-        letter-spacing: 0.5px !important;
-        box-shadow: none !important;
+        font-weight: 700 !important;
+    }
+    .badge-priority {
+        background: #2563EB !important;
+        color: #FFFFFF !important;
+        padding: 3px 9px !important;
+        border-radius: 4px !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
     }
 
     /* 6. Tabs */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px !important;
-        background-color: #000000 !important;
+        background-color: #F1F5F9 !important;
         padding: 6px !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 8px !important;
     }
     .stTabs [data-baseweb="tab"] {
-        border-radius: 0px !important;
+        border-radius: 6px !important;
         padding: 8px 18px !important;
         font-size: 13px !important;
         font-weight: 600 !important;
-        color: #FFFFFF !important;
-        background-color: #000000 !important;
-        border: 1px solid transparent !important;
+        color: #475569 !important;
+        background-color: transparent !important;
+        border: none !important;
+        transition: all 0.2s ease !important;
     }
     .stTabs [data-baseweb="tab"]:hover {
-        background-color: #000000 !important;
-        color: #FFFFFF !important;
-        border: 1px solid #FFFFFF !important;
+        color: #0F172A !important;
     }
     .stTabs [aria-selected="true"] {
         background-color: #FFFFFF !important;
-        color: #000000 !important;
-        border: 1px solid #FFFFFF !important;
+        color: #2563EB !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
     }
     .stTabs [aria-selected="true"] span, .stTabs [aria-selected="true"] div, .stTabs [aria-selected="true"] p {
-        color: #000000 !important;
-        background-color: transparent !important;
+        color: #2563EB !important;
+        font-weight: 700 !important;
     }
     .stTabs [aria-selected="false"] span, .stTabs [aria-selected="false"] div, .stTabs [aria-selected="false"] p {
-        color: #FFFFFF !important;
-        background-color: transparent !important;
+        color: #475569 !important;
     }
 
     /* 7. Sidebar */
     section[data-testid="stSidebar"] {
-        background-color: #000000 !important;
-        border-right: 1px solid #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        border-right: 1px solid #E2E8F0 !important;
     }
     section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
-        background-color: #000000 !important;
+        background-color: #FFFFFF !important;
     }
 
-    /* 8. Inputs, Selectboxes, Checkboxes, Number Inputs */
+    /* 8. Inputs, Selectboxes, Number Inputs */
     input, textarea, select, [data-baseweb="select"], [data-baseweb="input"], [data-baseweb="base-input"] {
-        background-color: #000000 !important;
-        color: #FFFFFF !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
-        box-shadow: none !important;
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border: 1px solid #CBD5E1 !important;
+        border-radius: 6px !important;
     }
     div[data-baseweb="input"] > div {
-        background-color: #000000 !important;
+        background-color: #FFFFFF !important;
     }
     div[data-baseweb="popover"], div[data-baseweb="menu"], ul[role="listbox"] {
-        background-color: #000000 !important;
-        border: 1px solid #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
     }
     li[role="option"] {
-        background-color: #000000 !important;
-        color: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
     }
     li[role="option"]:hover, li[role="option"][aria-selected="true"] {
-        background-color: #FFFFFF !important;
-        color: #000000 !important;
+        background-color: #EFF6FF !important;
+        color: #2563EB !important;
     }
 
-    /* Checkbox & Radio styling */
-    [data-testid="stCheckbox"] label span:first-child {
-        background-color: #000000 !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
-    }
-    [data-testid="stCheckbox"] input:checked + div {
-        background-color: #FFFFFF !important;
-    }
-    [data-testid="stCheckbox"] input:checked + div svg {
-        fill: #000000 !important;
-        stroke: #000000 !important;
-    }
-
-    /* 9. Buttons & Interactive States: STRICT Pure White bg with Pure Black text; Inverted on Hover */
-    button, [data-testid="baseButton-secondary"], [data-testid="baseButton-primary"], div.stButton > button, div.stDownloadButton > button {
-        background-color: #FFFFFF !important;
-        background-image: none !important;
-        color: #000000 !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
-        font-weight: 700 !important;
+    /* 9. Clean Action Buttons */
+    div.stButton > button, div.stDownloadButton > button {
+        background-color: #2563EB !important;
+        color: #FFFFFF !important;
+        border: 1px solid #1D4ED8 !important;
+        border-radius: 6px !important;
+        font-weight: 600 !important;
         font-size: 13px !important;
-        letter-spacing: 0.3px !important;
-        box-shadow: none !important;
-        outline: none !important;
-        opacity: 1 !important;
-        transition: all 0.15s ease-in-out !important;
+        padding: 8px 16px !important;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
     }
-    button *, [data-testid="baseButton-secondary"] *, [data-testid="baseButton-primary"] *, div.stButton > button *, div.stDownloadButton > button * {
-        color: #000000 !important;
-        background-color: transparent !important;
+    div.stButton > button:hover, div.stDownloadButton > button:hover {
+        background-color: #1D4ED8 !important;
+        border-color: #1E40AF !important;
+        box-shadow: 0 4px 8px rgba(37, 99, 235, 0.25) !important;
+    }
+    div.stButton > button * {
+        color: #FFFFFF !important;
     }
 
-    /* Hover State: Inverted -> Pure Black bg with Pure White text and 1px solid #FFFFFF border */
-    button:hover, [data-testid="baseButton-secondary"]:hover, [data-testid="baseButton-primary"]:hover, div.stButton > button:hover, div.stDownloadButton > button:hover {
-        background-color: #000000 !important;
-        background-image: none !important;
-        color: #FFFFFF !important;
-        border: 1px solid #FFFFFF !important;
-        box-shadow: none !important;
-        transform: none !important;
+    /* Secondary / Stop buttons */
+    button[kind="secondary"] {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border: 1px solid #CBD5E1 !important;
     }
-    button:hover *, [data-testid="baseButton-secondary"]:hover *, [data-testid="baseButton-primary"]:hover *, div.stButton > button:hover *, div.stDownloadButton > button:hover * {
-        color: #FFFFFF !important;
-        background-color: transparent !important;
+    button[kind="secondary"]:hover {
+        background-color: #F1F5F9 !important;
+        border-color: #94A3B8 !important;
     }
-
-    /* Active / Focus State */
-    button:active, button:focus, [data-testid="baseButton-secondary"]:active, [data-testid="baseButton-primary"]:active {
-        background-color: #000000 !important;
-        color: #FFFFFF !important;
-        border: 1px solid #FFFFFF !important;
-        box-shadow: none !important;
+    button[kind="secondary"] * {
+        color: #0F172A !important;
     }
 
     /* 10. Horizontal Rules & Dividers */
     hr {
-        border-color: #FFFFFF !important;
-        border-width: 1px !important;
-    }
-
-    /* 11. Streamlit default info/warning/error banners override */
-    [data-testid="stAlert"] {
-        background-color: #000000 !important;
-        color: #FFFFFF !important;
-        border: 1px solid #FFFFFF !important;
-        border-radius: 0px !important;
-    }
-    [data-testid="stAlert"] * {
-        color: #FFFFFF !important;
-        background-color: transparent !important;
+        border-color: #E2E8F0 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -403,10 +381,10 @@ def create_traffic_map(
     return pdk.Deck(
         layers=layers,
         initial_view_state=view_state,
-        map_style="dark",
+        map_style="light",
         tooltip={
             "html": "<b>{name}</b><br/>Traffic Density: <b>{density}</b> ({vehicles} vehicles)<br/>GPS: {status}",
-            "style": {"backgroundColor": "#000000", "color": "#FFFFFF", "fontSize": "12px", "border": "1px solid #FFFFFF"}
+            "style": {"backgroundColor": "#FFFFFF", "color": "#0F172A", "fontSize": "12px", "border": "1px solid #CBD5E1"}
         }
     )
 
@@ -420,15 +398,16 @@ def main():
     density_cfg = settings.get("density", {})
     default_roi = density_cfg.get("default_roi", None)
 
-    # Top Header Banner (Strict Monochrome B&W)
+    # Top Header Banner (Modern Light Mode)
     st.markdown("""
     <div class="app-header">
         <div>
-            <div class="app-title">🚦 RoadSentry AI <span style="font-size:14px; font-weight:700; color:#FFFFFF; margin-left:8px; border:1px solid #FFFFFF; padding:2px 8px;">AUTONOMOUS SUITE</span></div>
+            <div class="app-title">🚦 RoadSentry AI <span style="font-size:13px; font-weight:700; color:#2563EB; margin-left:8px; border:1px solid #BFDBFE; background:#EFF6FF; padding:3px 10px; border-radius:20px;">AUTONOMOUS SUITE</span></div>
             <div class="app-subtitle">Real-time Vision Analytics • Adaptive Congestion Heatmap • Emergency Priority Corridors • Automated Accident SOS</div>
         </div>
         <div style="text-align: right;">
-            <span style="display:inline-flex; align-items:center; gap:6px; background:#000000; color:#FFFFFF; padding:5px 12px; font-size:12px; font-weight:700; border:1px solid #FFFFFF;">
+            <span style="display:inline-flex; align-items:center; gap:6px; background:#DCFCE7; color:#166534; padding:5px 12px; border-radius:20px; font-size:12px; font-weight:700; border:1px solid #86EFAC;">
+                <span style="width:8px; height:8px; border-radius:50%; background:#22C55E;"></span>
                 SYSTEM ACTIVE
             </span>
         </div>
@@ -561,7 +540,7 @@ def main():
     test_sos_btn = st.sidebar.button("🧪 Send Test SOS to My Number", help="Dispatches a test notification to verify delivery to your phone.")
 
     st.sidebar.markdown("""
-    <div style="font-size: 11px; color: #FFFFFF; background-color: #000000; border: 1px solid #FFFFFF; padding: 8px; margin-top: 4px;">
+    <div style="font-size: 11px; color: #475569; background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 8px; margin-top: 4px;">
         📍 <b>Permanent Config:</b> You can also save credentials permanently in <code>config/settings.yaml</code> under the <code>sos:</code> section.
     </div>
     """, unsafe_allow_html=True)
@@ -627,8 +606,8 @@ def main():
             heatmap_status_placeholder = st.empty()
             heatmap_placeholder = st.empty()
             st.markdown("""
-            <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 10px 14px; margin-top: 8px; font-size: 12px; color: #FFFFFF;">
-                <b>🗺️ Heatmap Guide:</b> High intensity = Stopped or crawling traffic. Smooth flow = Clear lanes.
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 12px; color: #475569;">
+                <b>🗺️ Heatmap Guide:</b> 🔴 <b>Red/Amber</b> = Crawling traffic/bottlenecks. 🟢 <b>Green</b> = Free-flowing clear lanes.
             </div>
             """, unsafe_allow_html=True)
 
@@ -642,7 +621,7 @@ def main():
         with core_tabs[0]:
             # Feature 2 & 1: Live Traffic Map
             st.subheader("Monitored Road Network Heatmap")
-            map_gps_badge = '<span style="color:#FFFFFF; font-size:12px; font-weight:600; border:1px solid #FFFFFF; padding:1px 4px;">[Simulated CCTV GPS Anchor]</span>' if is_sim_gps else '<span style="color:#FFFFFF; font-size:12px; border:1px solid #FFFFFF; padding:1px 4px;">[Live Hardware GPS]</span>'
+            map_gps_badge = '<span style="color:#B45309; background:#FEF3C7; font-size:12px; font-weight:600; border:1px solid #FDE68A; padding:2px 8px; border-radius:12px;">[Simulated CCTV GPS]</span>' if is_sim_gps else '<span style="color:#15803D; background:#DCFCE7; font-size:12px; border:1px solid #86EFAC; padding:2px 8px; border-radius:12px;">[Live Hardware GPS]</span>'
             map_label_placeholder = st.empty()
             map_label_placeholder.markdown(f"<b>📍 Monitored Road:</b> {road_name} {map_gps_badge}", unsafe_allow_html=True)
             map_placeholder = st.empty()
@@ -728,12 +707,12 @@ def main():
 
     # Initial Route Assist State
     emergency_banner_placeholder.markdown("""
-    <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 12px 16px;">
+    <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <b style="color: #FFFFFF;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
-            <span style="background-color: #FFFFFF; color: #000000; padding: 2px 8px; font-size: 11px; font-weight: 700; border: 1px solid #FFFFFF;">STANDBY</span>
+            <b style="color: #0F172A;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
+            <span style="background-color: #F1F5F9; color: #475569; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; border: 1px solid #CBD5E1;">STANDBY</span>
         </div>
-        <div style="font-size: 12px; color: #FFFFFF; margin-top: 6px;">
+        <div style="font-size: 12px; color: #64748B; margin-top: 6px;">
             Standard 45s cyclic timing. Priority green corridor on standby for ambulances or police.
         </div>
     </div>
@@ -743,11 +722,11 @@ def main():
     sos_status_banner_placeholder.markdown(f"""
     <div class="sos-banner">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <b style="color: #FFFFFF;">📡 SOS DISPATCHER: ACTIVE</b>
-            <span style="background-color: #FFFFFF; color: #000000; padding: 2px 8px; font-size: 11px; font-weight: 700; border: 1px solid #FFFFFF;">READY</span>
+            <b style="color: #0F172A;">📡 SOS DISPATCHER: ACTIVE</b>
+            <span style="background-color: #DCFCE7; color: #166534; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; border: 1px solid #86EFAC;">READY</span>
         </div>
-        <div style="font-size: 12px; color: #FFFFFF; margin-top: 6px;">
-            Target Emergency Mobile: <b style="color: #FFFFFF; font-size: 13px; text-decoration: underline;">{contact_phone}</b><br>
+        <div style="font-size: 12px; color: #475569; margin-top: 6px;">
+            Target Emergency Mobile: <b style="color: #2563EB; font-size: 13px;">{contact_phone}</b><br>
             <i>Accidents immediately dispatch automated SOS SMS with live GPS anchor and vehicle telemetry.</i>
         </div>
     </div>
@@ -869,11 +848,13 @@ def main():
 
             # Hotspot Heatmap
             stats = telemetry.get("heatmap_stats", {"bottleneck_level": "CLEAR", "bottleneck_desc": "Flowing smoothly", "peak_intensity": 0})
+            badge_bg = "#DCFCE7" if stats["bottleneck_level"] == "CLEAR" else ("#FEF3C7" if stats["bottleneck_level"] == "MODERATE" else "#FEE2E2")
+            badge_color = "#166534" if stats["bottleneck_level"] == "CLEAR" else ("#B45309" if stats["bottleneck_level"] == "MODERATE" else "#991B1B")
             heatmap_status_placeholder.markdown(
-                f'<div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 8px 12px; margin-bottom: 6px;">'
-                f'<span style="font-weight: 700; color: #FFFFFF;">HOTSPOT STATUS: {stats["bottleneck_level"]}</span> &nbsp;|&nbsp; '
-                f'<span style="color: #FFFFFF; font-size: 13px;">{stats["bottleneck_desc"]}</span> '
-                f'<span style="color: #FFFFFF; font-size: 12px;">(Congestion Intensity: {stats["peak_intensity"]}%)</span>'
+                f'<div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; padding: 10px 14px; border-radius: 8px; margin-bottom: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">'
+                f'<span style="background-color: {badge_bg}; color: {badge_color}; font-weight: 700; padding: 2px 8px; border-radius: 6px; font-size: 11px;">HOTSPOT: {stats["bottleneck_level"]}</span> &nbsp;|&nbsp; '
+                f'<span style="color: #0F172A; font-size: 13px;">{stats["bottleneck_desc"]}</span> '
+                f'<span style="color: #64748B; font-size: 12px;">(Congestion Intensity: {stats["peak_intensity"]}%)</span>'
                 f'</div>',
                 unsafe_allow_html=True
             )
@@ -907,22 +888,22 @@ def main():
                 bus_pct = int((bus_cnt / total_v) * 100)
 
                 category_breakdown_placeholder.markdown(f"""
-                <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 12px 16px;">
+                <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🚗 <b>Passenger Cars:</b> {car_cnt}</span>
-                        <span style="color: #FFFFFF; font-weight: 700;">{car_pct}%</span>
+                        <span style="color: #2563EB; font-weight: 700;">{car_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🏍️ <b>Motorcycles & Two-Wheelers:</b> {bike_cnt}</span>
-                        <span style="color: #FFFFFF; font-weight: 700;">{bike_pct}%</span>
+                        <span style="color: #2563EB; font-weight: 700;">{bike_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🚛 <b>Commercial Trucks:</b> {truck_cnt}</span>
-                        <span style="color: #FFFFFF; font-weight: 700;">{truck_pct}%</span>
+                        <span style="color: #2563EB; font-weight: 700;">{truck_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; font-size: 13px;">
                         <span>🚌 <b>Public Transit Buses:</b> {bus_cnt}</span>
-                        <span style="color: #FFFFFF; font-weight: 700;">{bus_pct}%</span>
+                        <span style="color: #2563EB; font-weight: 700;">{bus_pct}%</span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -933,33 +914,33 @@ def main():
             route_data = telemetry.get("route_assistance", {})
             if route_data.get("is_active"):
                 emergency_banner_placeholder.markdown(f"""
-                <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 14px 18px; margin-bottom: 10px;">
+                <div style="background-color: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #2563EB; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span class="badge-priority">PRIORITY CORRIDOR ACTIVE</span>
-                        <b style="color: #FFFFFF; font-size: 16px;">{route_data.get('vehicle_type')} #{route_data.get('vehicle_id')}</b>
+                        <b style="color: #1D4ED8; font-size: 16px;">{route_data.get('vehicle_type')} #{route_data.get('vehicle_id')}</b>
                     </div>
-                    <div style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #FFFFFF;">
+                    <div style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #0F172A;">
                         🚦 {route_data.get('intersection_action')}
                     </div>
-                    <div style="margin-top: 8px; font-size: 13px; color: #FFFFFF;">
+                    <div style="margin-top: 8px; font-size: 13px; color: #334155;">
                         🛣️ <b>Priority Corridor:</b> {route_data.get('corridor_name')}<br>
                         ⏱️ <b>Green Phase Extension:</b> {route_data.get('green_duration')}<br>
                         🛑 <b>Intersection Control:</b> {route_data.get('cross_traffic_status')}<br>
                         🏥 <b>Clear Destination:</b> {route_data.get('target_destination')}
                     </div>
-                    <div style="margin-top: 10px; padding: 8px 12px; background: #000000; border: 1px solid #FFFFFF; font-size: 12px; color: #FFFFFF;">
+                    <div style="margin-top: 10px; padding: 8px 12px; background: #DBEAFE; border-radius: 6px; font-size: 12px; color: #1E40AF;">
                         ⚠️ <b>Civilian Detour Advisory:</b> {route_data.get('detour_advisory')}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 emergency_banner_placeholder.markdown("""
-                <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 12px 16px;">
+                <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <b style="color: #FFFFFF;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
-                        <span style="background-color: #FFFFFF; color: #000000; padding: 2px 8px; font-size: 11px; font-weight: 700; border: 1px solid #FFFFFF;">STANDBY</span>
+                        <b style="color: #0F172A;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
+                        <span style="background-color: #F1F5F9; color: #475569; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; border: 1px solid #CBD5E1;">STANDBY</span>
                     </div>
-                    <div style="font-size: 12px; color: #FFFFFF; margin-top: 6px;">
+                    <div style="font-size: 12px; color: #64748B; margin-top: 6px;">
                         Standard 45s cyclic rotation active. Priority corridor on standby for ambulances, fire engines, or police vehicles.
                     </div>
                 </div>
@@ -969,19 +950,22 @@ def main():
             # FEATURE 4: ACCIDENT DETECTION & SOS STATUS PANEL
             # -----------------------------------------------------
             sos_status = telemetry.get("sos_status", {})
+            sos_bg = "#DCFCE7" if sos_status.get("delivered") else "#FEF3C7"
+            sos_text = "#166534" if sos_status.get("delivered") else "#B45309"
+            sos_border = "#86EFAC" if sos_status.get("delivered") else "#FDE68A"
             sos_badge = "DELIVERED" if sos_status.get("delivered") else "STANDBY"
 
             sos_status_banner_placeholder.markdown(f"""
             <div class="sos-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <b style="color: #FFFFFF;">📡 SOS DISPATCH STATUS: <span>{sos_badge}</span></b>
-                    <span style="background-color: #FFFFFF; color: #000000; padding: 2px 8px; font-size: 11px; font-weight: 700; border: 1px solid #FFFFFF;">{sos_status.get('status', 'STANDBY')}</span>
+                    <b style="color: #0F172A;">📡 SOS DISPATCH STATUS: <span style="color: {sos_text};">{sos_badge}</span></b>
+                    <span style="background-color: {sos_bg}; color: {sos_text}; border: 1px solid {sos_border}; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;">{sos_status.get('status', 'STANDBY')}</span>
                 </div>
-                <div style="font-size: 12px; color: #FFFFFF; margin-top: 6px;">
+                <div style="font-size: 12px; color: #475569; margin-top: 6px;">
                     {sos_status.get('message', 'Monitoring road for collision anomalies.')}
                 </div>
-                <div style="font-size: 11px; color: #FFFFFF; margin-top: 6px; border-top: 1px solid #FFFFFF; padding-top: 4px;">
-                    Target Emergency Mobile: <b style="color: #FFFFFF; font-size: 12px; text-decoration: underline;">{contact_phone}</b>
+                <div style="font-size: 11px; color: #64748B; margin-top: 6px; border-top: 1px solid #E2E8F0; padding-top: 4px;">
+                    Target Emergency Mobile: <b style="color: #2563EB; font-size: 12px;">{contact_phone}</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -998,12 +982,12 @@ def main():
                     <div class="{card_cls}">
                         <div style="display: flex; justify-content: space-between;">
                             <span class="{badge_cls}">{inc.get('severity')}</span>
-                            <span style="color: #FFFFFF; font-size: 12px;">{inc.get('timestamp')}</span>
+                            <span style="color: #64748B; font-size: 12px;">{inc.get('timestamp')}</span>
                         </div>
-                        <div style="margin-top: 4px; font-weight: 700; color: #FFFFFF; font-size: 14px;">
+                        <div style="margin-top: 4px; font-weight: 700; color: #0F172A; font-size: 14px;">
                             {inc.get('type')}
                         </div>
-                        <div style="font-size: 12px; color: #FFFFFF; margin-top: 2px;">
+                        <div style="font-size: 12px; color: #475569; margin-top: 2px;">
                             Vehicles: #{inc.get('vehicle_ids')} &nbsp;|&nbsp; {inc.get('details')}
                         </div>
                     </div>
