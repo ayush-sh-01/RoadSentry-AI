@@ -59,195 +59,203 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom High-End Sci-Fi Dark Cyberpunk CSS
+# Strict Monochrome High-Contrast Black & White CSS
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
-    html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        color: #f8fafc;
+    /* 1. Global Reset to Pure Pitch Black & Pure White */
+    *, html, body, [class*="css"], .stApp {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        background-color: #000000 !important;
+        background-image: none !important;
+        color: #FFFFFF !important;
     }
 
-    .stApp {
-        background: radial-gradient(circle at 15% 15%, rgba(0, 229, 255, 0.04) 0%, transparent 45%),
-                    radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
-                    #0b0f19;
-        color: #f8fafc;
+    /* 2. Text & Headings */
+    h1, h2, h3, h4, h5, h6, p, span, label, div, a, b, strong, i, em {
+        color: #FFFFFF !important;
+    }
+    a {
+        text-decoration: underline !important;
     }
 
+    /* 3. Header Banner */
     .app-header {
-        background: linear-gradient(135deg, rgba(20, 26, 43, 0.75) 0%, rgba(15, 23, 42, 0.6) 100%);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        padding: 18px 24px;
-        margin-bottom: 20px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        background-color: #000000 !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
+        padding: 18px 24px !important;
+        margin-bottom: 20px !important;
+        box-shadow: none !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
     }
     .app-title {
-        font-size: 26px;
-        font-weight: 800;
-        background: linear-gradient(135deg, #f8fafc 0%, #00e5ff 60%, #38bdf8 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: -0.5px;
-        margin: 0;
+        font-size: 26px !important;
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        letter-spacing: -0.5px !important;
+        margin: 0 !important;
     }
     .app-subtitle {
-        font-size: 13px;
-        color: #94a3b8;
-        margin-top: 4px;
-        font-weight: 500;
+        font-size: 13px !important;
+        color: #FFFFFF !important;
+        margin-top: 4px !important;
+        font-weight: 500 !important;
     }
 
+    /* 4. Metric Cards & Dividers */
     .metric-card {
-        background: linear-gradient(145deg, rgba(26, 32, 53, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 14px;
-        padding: 16px 14px;
-        text-align: center;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
-        position: relative;
-        overflow: hidden;
+        background-color: #000000 !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
+        padding: 16px 14px !important;
+        text-align: center !important;
+        box-shadow: none !important;
+        position: relative !important;
     }
     .metric-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.6), transparent);
+        display: none !important;
     }
     .metric-card:hover {
-        transform: translateY(-2px);
-        border-color: rgba(0, 229, 255, 0.3);
-        box-shadow: 0 10px 28px -4px rgba(0, 229, 255, 0.15);
+        transform: none !important;
+        border: 1px solid #FFFFFF !important;
+        box-shadow: none !important;
     }
     .metric-val {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 26px;
-        font-weight: 700;
-        color: #00e5ff;
-        margin-top: 6px;
-        letter-spacing: -0.5px;
-        text-shadow: 0 0 20px rgba(0, 229, 255, 0.35);
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 26px !important;
+        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        margin-top: 6px !important;
+        letter-spacing: -0.5px !important;
+        text-shadow: none !important;
     }
     .metric-lbl {
-        font-size: 11px;
-        font-weight: 700;
-        color: #94a3b8;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.8px !important;
     }
     .metric-sub {
-        font-size: 11px;
-        color: #cbd5e1;
-        margin-top: 5px;
-        font-weight: 500;
+        font-size: 11px !important;
+        color: #FFFFFF !important;
+        margin-top: 5px !important;
+        font-weight: 500 !important;
     }
 
-    .alert-card-critical {
-        background: linear-gradient(135deg, rgba(69, 10, 20, 0.65) 0%, rgba(20, 15, 25, 0.8) 100%);
-        border: 1px solid rgba(244, 63, 94, 0.3);
-        border-left: 5px solid #f43f5e;
-        border-radius: 12px;
-        padding: 14px 18px;
-        margin-bottom: 10px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 16px rgba(244, 63, 94, 0.15);
+    /* 5. Alert & SOS Containers */
+    .alert-card-critical, .alert-card-priority, .sos-banner {
+        background-color: #000000 !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
+        padding: 14px 18px !important;
+        margin-bottom: 10px !important;
+        box-shadow: none !important;
     }
-    .alert-card-priority {
-        background: linear-gradient(135deg, rgba(8, 47, 73, 0.65) 0%, rgba(15, 23, 42, 0.8) 100%);
-        border: 1px solid rgba(0, 229, 255, 0.3);
-        border-left: 5px solid #00e5ff;
-        border-radius: 12px;
-        padding: 14px 18px;
-        margin-bottom: 10px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 16px rgba(0, 229, 255, 0.15);
-    }
-    .badge-critical {
-        background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
-        color: white;
-        padding: 3px 9px;
-        border-radius: 6px;
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
-    }
-    .badge-priority {
-        background: linear-gradient(135deg, #00e5ff 0%, #0284c7 100%);
-        color: #041324;
-        padding: 3px 9px;
-        border-radius: 6px;
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        box-shadow: 0 2px 8px rgba(0, 229, 255, 0.4);
+    .badge-critical, .badge-priority {
+        background-color: #FFFFFF !important;
+        color: #000000 !important;
+        padding: 3px 9px !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.5px !important;
+        box-shadow: none !important;
     }
 
-    .sos-banner {
-        background: linear-gradient(145deg, rgba(22, 28, 48, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 14px;
-        padding: 16px 20px;
-        margin-bottom: 16px;
-        backdrop-filter: blur(12px);
-        box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.3);
-    }
-
+    /* 6. Tabs */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        background: rgba(15, 23, 42, 0.6);
-        padding: 6px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        gap: 8px !important;
+        background-color: #000000 !important;
+        padding: 6px !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
     }
     .stTabs [data-baseweb="tab"] {
-        border-radius: 8px;
-        padding: 8px 18px;
-        font-size: 13px;
-        font-weight: 600;
-        color: #94a3b8;
-        border: none !important;
-        transition: all 0.2s ease;
+        border-radius: 0px !important;
+        padding: 8px 18px !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #FFFFFF !important;
+        background-color: #000000 !important;
+        border: 1px solid transparent !important;
     }
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, rgba(0, 229, 255, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%) !important;
-        color: #00e5ff !important;
-        border: 1px solid rgba(0, 229, 255, 0.35) !important;
-        box-shadow: 0 2px 10px rgba(0, 229, 255, 0.1);
+        background-color: #FFFFFF !important;
+        color: #000000 !important;
+        border: 1px solid #FFFFFF !important;
+    }
+    .stTabs [aria-selected="true"] span, .stTabs [aria-selected="true"] div {
+        color: #000000 !important;
     }
 
+    /* 7. Sidebar */
     section[data-testid="stSidebar"] {
-        background-color: #0e1320;
-        border-right: 1px solid rgba(255, 255, 255, 0.06);
+        background-color: #000000 !important;
+        border-right: 1px solid #FFFFFF !important;
     }
-    section[data-testid="stSidebar"] h1, 
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3 {
-        color: #f1f5f9;
-        font-weight: 700;
-        letter-spacing: -0.3px;
+    section[data-testid="stSidebar"] * {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
     }
 
-    div.stButton > button {
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 13px;
-        letter-spacing: 0.3px;
-        transition: all 0.25s ease;
+    /* 8. Inputs, Selectboxes, Sliders, Tables */
+    input, textarea, select, [data-baseweb="select"], [data-baseweb="input"], [data-baseweb="base-input"] {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
+        box-shadow: none !important;
     }
-    div.stButton > button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 18px rgba(0, 229, 255, 0.25);
+    div[data-baseweb="popover"], div[data-baseweb="menu"], ul[role="listbox"] {
+        background-color: #000000 !important;
+        border: 1px solid #FFFFFF !important;
+    }
+    li[role="option"] {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+    }
+    li[role="option"]:hover, li[role="option"][aria-selected="true"] {
+        background-color: #FFFFFF !important;
+        color: #000000 !important;
+    }
+
+    /* 9. Buttons & Interactive States: White bg with Black text; Inverted on Hover */
+    div.stButton > button, div.stDownloadButton > button {
+        background-color: #FFFFFF !important;
+        color: #000000 !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 0px !important;
+        font-weight: 700 !important;
+        font-size: 13px !important;
+        letter-spacing: 0.3px !important;
+        transition: all 0.2s ease !important;
+        box-shadow: none !important;
+    }
+    div.stButton > button:hover, div.stDownloadButton > button:hover {
+        background-color: #000000 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #FFFFFF !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+    div.stButton > button * {
+        color: #000000 !important;
+    }
+    div.stButton > button:hover * {
+        color: #FFFFFF !important;
+    }
+
+    /* 10. Horizontal Rules & Borders */
+    hr {
+        border-color: #FFFFFF !important;
+        border-width: 1px !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -344,7 +352,7 @@ def create_traffic_map(
         map_style="dark",
         tooltip={
             "html": "<b>{name}</b><br/>Traffic Density: <b>{density}</b> ({vehicles} vehicles)<br/>GPS: {status}",
-            "style": {"backgroundColor": "#1e2130", "color": "#f8fafc", "fontSize": "12px", "border": "1px solid rgba(0,229,255,0.3)"}
+            "style": {"backgroundColor": "#000000", "color": "#FFFFFF", "fontSize": "12px", "border": "1px solid #FFFFFF"}
         }
     )
 
@@ -358,16 +366,15 @@ def main():
     density_cfg = settings.get("density", {})
     default_roi = density_cfg.get("default_roi", None)
 
-    # Top Sci-Fi Header Banner (Pure Dark Cyberpunk)
+    # Top Header Banner (Strict Monochrome B&W)
     st.markdown("""
     <div class="app-header">
         <div>
-            <div class="app-title">🚦 RoadSentry AI <span style="font-size:16px; font-weight:600; color:#00e5ff; margin-left:8px; border:1px solid rgba(0,229,255,0.4); padding:3px 10px; border-radius:20px; background:rgba(0,229,255,0.1);">AUTONOMOUS SUITE</span></div>
+            <div class="app-title">🚦 RoadSentry AI <span style="font-size:14px; font-weight:700; color:#FFFFFF; margin-left:8px; border:1px solid #FFFFFF; padding:2px 8px;">AUTONOMOUS SUITE</span></div>
             <div class="app-subtitle">Real-time Vision Analytics • Adaptive Congestion Heatmap • Emergency Priority Corridors • Automated Accident SOS</div>
         </div>
         <div style="text-align: right;">
-            <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(0,230,118,0.12); color:#00e676; padding:5px 12px; border-radius:8px; font-size:12px; font-weight:700; border:1px solid rgba(0,230,118,0.3);">
-                <span style="width:8px; height:8px; border-radius:50%; background:#00e676; box-shadow:0 0 10px #00e676;"></span>
+            <span style="display:inline-flex; align-items:center; gap:6px; background:#000000; color:#FFFFFF; padding:5px 12px; font-size:12px; font-weight:700; border:1px solid #FFFFFF;">
                 SYSTEM ACTIVE
             </span>
         </div>
@@ -545,10 +552,10 @@ def main():
 
     # Initial KPI cards
     fps_metric.markdown('<div class="metric-card"><div class="metric-lbl">Processing Speed</div><div class="metric-val">0.0 FPS</div><div class="metric-sub">Vision Pipeline</div></div>', unsafe_allow_html=True)
-    density_metric.markdown('<div class="metric-card"><div class="metric-lbl">Traffic Density</div><div class="metric-val" style="color:#00e676">LOW</div><div class="metric-sub">Smooth Free Flow</div></div>', unsafe_allow_html=True)
+    density_metric.markdown('<div class="metric-card"><div class="metric-lbl">Traffic Density</div><div class="metric-val">LOW</div><div class="metric-sub">Smooth Free Flow</div></div>', unsafe_allow_html=True)
     counts_metric.markdown('<div class="metric-card"><div class="metric-lbl">Vehicles in View</div><div class="metric-val">0</div><div class="metric-sub">Cars: 0 | Bikes: 0 | Trucks: 0</div></div>', unsafe_allow_html=True)
-    emergency_metric.markdown('<div class="metric-card"><div class="metric-lbl">Emergency Vehicles</div><div class="metric-val" style="color:#00e5ff">0</div><div class="metric-sub">Corridors Standby</div></div>', unsafe_allow_html=True)
-    sos_metric.markdown('<div class="metric-card"><div class="metric-lbl">Accidents & SOS</div><div class="metric-val" style="color:#00e676">0 Events</div><div class="metric-sub">SOS Ready</div></div>', unsafe_allow_html=True)
+    emergency_metric.markdown('<div class="metric-card"><div class="metric-lbl">Emergency Vehicles</div><div class="metric-val">0</div><div class="metric-sub">Corridors Standby</div></div>', unsafe_allow_html=True)
+    sos_metric.markdown('<div class="metric-card"><div class="metric-lbl">Accidents & SOS</div><div class="metric-val">0 Events</div><div class="metric-sub">SOS Ready</div></div>', unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -566,8 +573,8 @@ def main():
             heatmap_status_placeholder = st.empty()
             heatmap_placeholder = st.empty()
             st.markdown("""
-            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 12px; color: #334155;">
-                <b>🗺️ Heatmap Guide:</b> 🔴 <b>Red/Amber</b> = Stopped or crawling traffic (severe bottleneck). 🟢 <b>Green/Cyan</b> = Smoothly moving vehicles. Older trails fade automatically.
+            <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 10px 14px; margin-top: 8px; font-size: 12px; color: #FFFFFF;">
+                <b>🗺️ Heatmap Guide:</b> High intensity = Stopped or crawling traffic. Smooth flow = Clear lanes.
             </div>
             """, unsafe_allow_html=True)
 
@@ -581,7 +588,7 @@ def main():
         with core_tabs[0]:
             # Feature 2 & 1: Live Traffic Map
             st.subheader("Monitored Road Network Heatmap")
-            map_gps_badge = '<span style="color:#ffb74d; font-size:12px; font-weight:600;">[⚠️ Simulated CCTV GPS Anchor]</span>' if is_sim_gps else '<span style="color:#00e676; font-size:12px;">[📡 Live Hardware GPS]</span>'
+            map_gps_badge = '<span style="color:#FFFFFF; font-size:12px; font-weight:600; border:1px solid #FFFFFF; padding:1px 4px;">[Simulated CCTV GPS Anchor]</span>' if is_sim_gps else '<span style="color:#FFFFFF; font-size:12px; border:1px solid #FFFFFF; padding:1px 4px;">[Live Hardware GPS]</span>'
             map_label_placeholder = st.empty()
             map_label_placeholder.markdown(f"<b>📍 Monitored Road:</b> {road_name} {map_gps_badge}", unsafe_allow_html=True)
             map_placeholder = st.empty()
@@ -667,12 +674,12 @@ def main():
 
     # Initial Route Assist State
     emergency_banner_placeholder.markdown("""
-    <div style="background-color: #1a1e2e; border: 1px solid #2d3250; border-radius: 8px; padding: 12px 16px;">
+    <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 12px 16px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <b style="color: #cbd5e1;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
-            <span style="background-color: #334155; color: #cbd5e1; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">STANDBY</span>
+            <b style="color: #FFFFFF;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
+            <span style="background-color: #FFFFFF; color: #000000; padding: 2px 8px; font-size: 11px; font-weight: 700; border: 1px solid #FFFFFF;">STANDBY</span>
         </div>
-        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">
+        <div style="font-size: 12px; color: #FFFFFF; margin-top: 6px;">
             Standard 45s cyclic timing. Priority green corridor on standby for ambulances or police.
         </div>
     </div>
@@ -682,11 +689,11 @@ def main():
     sos_status_banner_placeholder.markdown(f"""
     <div class="sos-banner">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <b style="color: #e2e8f0;">📡 SOS DISPATCHER: ACTIVE</b>
-            <span style="background-color: #00e676; color: #0b1120; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">READY</span>
+            <b style="color: #FFFFFF;">📡 SOS DISPATCHER: ACTIVE</b>
+            <span style="background-color: #FFFFFF; color: #000000; padding: 2px 8px; font-size: 11px; font-weight: 700; border: 1px solid #FFFFFF;">READY</span>
         </div>
-        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">
-            Target Emergency Mobile: <b style="color: #00e5ff; font-size: 13px;">{contact_phone}</b><br>
+        <div style="font-size: 12px; color: #FFFFFF; margin-top: 6px;">
+            Target Emergency Mobile: <b style="color: #FFFFFF; font-size: 13px; text-decoration: underline;">{contact_phone}</b><br>
             <i>Accidents immediately dispatch automated SOS SMS with live GPS anchor and vehicle telemetry.</i>
         </div>
     </div>
@@ -779,7 +786,6 @@ def main():
             # UPDATE TOP KPI CARDS
             # -----------------------------------------------------
             d_state = telemetry["density_level"]
-            d_color = "#00e676" if d_state == "LOW" else ("#ff9100" if d_state == "MEDIUM" else "#ff1744")
             d_sub = "Smooth Flow" if d_state == "LOW" else ("Moderate Traffic" if d_state == "MEDIUM" else "Heavy Congestion")
 
             counts_by_cls = telemetry.get("counts_by_class", {})
@@ -789,19 +795,17 @@ def main():
             bus_cnt = counts_by_cls.get("bus", 0)
 
             active_emer = len(telemetry.get("emergencies", []))
-            emer_color = "#ff1744" if active_emer > 0 else "#00e5ff"
-            emer_sub = "🚨 CORRIDOR ACTIVE" if active_emer > 0 else "Priority Standby"
+            emer_sub = "CORRIDOR ACTIVE" if active_emer > 0 else "Priority Standby"
 
             active_acc = len(telemetry.get("accidents", []))
-            acc_color = "#ff1744" if total_accidents > 0 else "#00e676"
             sos_info = telemetry.get("sos_status", {})
-            sos_deliv_txt = "✅ Delivered" if sos_info.get("delivered") else "Ready"
+            sos_deliv_txt = "Delivered" if sos_info.get("delivered") else "Ready"
 
             fps_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Processing Speed</div><div class="metric-val">{telemetry["fps"]:.1f} FPS</div><div class="metric-sub">Real-Time Engine</div></div>', unsafe_allow_html=True)
-            density_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Traffic Density</div><div class="metric-val" style="color:{d_color}">{d_state}</div><div class="metric-sub">{d_sub}</div></div>', unsafe_allow_html=True)
-            counts_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Vehicles in View</div><div class="metric-val">{telemetry["vehicle_count"]}</div><div class="metric-sub">🚗 {car_cnt} | 🏍️ {bike_cnt} | 🚛 {truck_cnt} | 🚌 {bus_cnt}</div></div>', unsafe_allow_html=True)
-            emergency_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Emergency Vehicles</div><div class="metric-val" style="color:{emer_color}">{total_emergencies}</div><div class="metric-sub">{emer_sub}</div></div>', unsafe_allow_html=True)
-            sos_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Accidents & SOS</div><div class="metric-val" style="color:{acc_color}">{total_accidents} Events</div><div class="metric-sub">SOS: {sos_deliv_txt}</div></div>', unsafe_allow_html=True)
+            density_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Traffic Density</div><div class="metric-val">{d_state}</div><div class="metric-sub">{d_sub}</div></div>', unsafe_allow_html=True)
+            counts_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Vehicles in View</div><div class="metric-val">{telemetry["vehicle_count"]}</div><div class="metric-sub">Cars: {car_cnt} | Bikes: {bike_cnt} | Trucks: {truck_cnt} | Buses: {bus_cnt}</div></div>', unsafe_allow_html=True)
+            emergency_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Emergency Vehicles</div><div class="metric-val">{total_emergencies}</div><div class="metric-sub">{emer_sub}</div></div>', unsafe_allow_html=True)
+            sos_metric.markdown(f'<div class="metric-card"><div class="metric-lbl">Accidents & SOS</div><div class="metric-val">{total_accidents} Events</div><div class="metric-sub">SOS: {sos_deliv_txt}</div></div>', unsafe_allow_html=True)
 
             # -----------------------------------------------------
             # RENDER VIDEO & CCTV HEATMAP
@@ -811,12 +815,11 @@ def main():
 
             # Hotspot Heatmap
             stats = telemetry.get("heatmap_stats", {"bottleneck_level": "CLEAR", "bottleneck_desc": "Flowing smoothly", "peak_intensity": 0})
-            status_color = "#10b981" if stats["bottleneck_level"] == "CLEAR" else ("#f59e0b" if stats["bottleneck_level"] == "MODERATE" else "#ef4444")
             heatmap_status_placeholder.markdown(
-                f'<div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid {status_color}; padding: 8px 12px; border-radius: 6px; margin-bottom: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">'
-                f'<span style="font-weight: 700; color: {status_color};">HOTSPOT STATUS: {stats["bottleneck_level"]}</span> &nbsp;|&nbsp; '
-                f'<span style="color: #1e293b; font-size: 13px;">{stats["bottleneck_desc"]}</span> '
-                f'<span style="color: #64748b; font-size: 12px;">(Congestion Intensity: {stats["peak_intensity"]}%)</span>'
+                f'<div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 8px 12px; margin-bottom: 6px;">'
+                f'<span style="font-weight: 700; color: #FFFFFF;">HOTSPOT STATUS: {stats["bottleneck_level"]}</span> &nbsp;|&nbsp; '
+                f'<span style="color: #FFFFFF; font-size: 13px;">{stats["bottleneck_desc"]}</span> '
+                f'<span style="color: #FFFFFF; font-size: 12px;">(Congestion Intensity: {stats["peak_intensity"]}%)</span>'
                 f'</div>',
                 unsafe_allow_html=True
             )
@@ -850,22 +853,22 @@ def main():
                 bus_pct = int((bus_cnt / total_v) * 100)
 
                 category_breakdown_placeholder.markdown(f"""
-                <div style="background-color: #1a1e2e; border: 1px solid #2d3250; border-radius: 8px; padding: 12px 16px;">
+                <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 12px 16px;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🚗 <b>Passenger Cars:</b> {car_cnt}</span>
-                        <span style="color: #00e5ff; font-weight: 600;">{car_pct}%</span>
+                        <span style="color: #FFFFFF; font-weight: 700;">{car_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🏍️ <b>Motorcycles & Two-Wheelers:</b> {bike_cnt}</span>
-                        <span style="color: #00e5ff; font-weight: 600;">{bike_pct}%</span>
+                        <span style="color: #FFFFFF; font-weight: 700;">{bike_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
                         <span>🚛 <b>Commercial Trucks:</b> {truck_cnt}</span>
-                        <span style="color: #00e5ff; font-weight: 600;">{truck_pct}%</span>
+                        <span style="color: #FFFFFF; font-weight: 700;">{truck_pct}%</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; font-size: 13px;">
                         <span>🚌 <b>Public Transit Buses:</b> {bus_cnt}</span>
-                        <span style="color: #00e5ff; font-weight: 600;">{bus_pct}%</span>
+                        <span style="color: #FFFFFF; font-weight: 700;">{bus_pct}%</span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -876,33 +879,33 @@ def main():
             route_data = telemetry.get("route_assistance", {})
             if route_data.get("is_active"):
                 emergency_banner_placeholder.markdown(f"""
-                <div style="background-color: #1c2b3e; border: 2px solid #00e5ff; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px;">
+                <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 14px 18px; margin-bottom: 10px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span class="badge-priority">PRIORITY CORRIDOR ACTIVE</span>
-                        <b style="color: #00e5ff; font-size: 16px;">{route_data.get('vehicle_type')} #{route_data.get('vehicle_id')}</b>
+                        <b style="color: #FFFFFF; font-size: 16px;">{route_data.get('vehicle_type')} #{route_data.get('vehicle_id')}</b>
                     </div>
-                    <div style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #f8fafc;">
+                    <div style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #FFFFFF;">
                         🚦 {route_data.get('intersection_action')}
                     </div>
-                    <div style="margin-top: 8px; font-size: 13px; color: #cbd5e1;">
+                    <div style="margin-top: 8px; font-size: 13px; color: #FFFFFF;">
                         🛣️ <b>Priority Corridor:</b> {route_data.get('corridor_name')}<br>
                         ⏱️ <b>Green Phase Extension:</b> {route_data.get('green_duration')}<br>
                         🛑 <b>Intersection Control:</b> {route_data.get('cross_traffic_status')}<br>
                         🏥 <b>Clear Destination:</b> {route_data.get('target_destination')}
                     </div>
-                    <div style="margin-top: 10px; padding: 8px 12px; background: rgba(0, 229, 255, 0.12); border-left: 3px solid #00e5ff; border-radius: 4px; font-size: 12px; color: #e2e8f0;">
+                    <div style="margin-top: 10px; padding: 8px 12px; background: #000000; border: 1px solid #FFFFFF; font-size: 12px; color: #FFFFFF;">
                         ⚠️ <b>Civilian Detour Advisory:</b> {route_data.get('detour_advisory')}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 emergency_banner_placeholder.markdown("""
-                <div style="background-color: #1a1e2e; border: 1px solid #2d3250; border-radius: 8px; padding: 12px 16px;">
+                <div style="background-color: #000000; border: 1px solid #FFFFFF; padding: 12px 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <b style="color: #cbd5e1;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
-                        <span style="background-color: #334155; color: #cbd5e1; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">STANDBY</span>
+                        <b style="color: #FFFFFF;">SIGNAL STATUS: NORMAL CYCLIC ROTATION</b>
+                        <span style="background-color: #FFFFFF; color: #000000; padding: 2px 8px; font-size: 11px; font-weight: 700; border: 1px solid #FFFFFF;">STANDBY</span>
                     </div>
-                    <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">
+                    <div style="font-size: 12px; color: #FFFFFF; margin-top: 6px;">
                         Standard 45s cyclic rotation active. Priority corridor on standby for ambulances, fire engines, or police vehicles.
                     </div>
                 </div>
@@ -912,20 +915,19 @@ def main():
             # FEATURE 4: ACCIDENT DETECTION & SOS STATUS PANEL
             # -----------------------------------------------------
             sos_status = telemetry.get("sos_status", {})
-            sos_color = "#00e676" if sos_status.get("delivered") else "#ff9100"
             sos_badge = "DELIVERED" if sos_status.get("delivered") else "STANDBY"
 
             sos_status_banner_placeholder.markdown(f"""
             <div class="sos-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <b style="color: #e2e8f0;">📡 SOS DISPATCH STATUS: <span style="color: {sos_color};">{sos_badge}</span></b>
-                    <span style="background-color: {sos_color}; color: #0b1120; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">{sos_status.get('status', 'STANDBY')}</span>
+                    <b style="color: #FFFFFF;">📡 SOS DISPATCH STATUS: <span>{sos_badge}</span></b>
+                    <span style="background-color: #FFFFFF; color: #000000; padding: 2px 8px; font-size: 11px; font-weight: 700; border: 1px solid #FFFFFF;">{sos_status.get('status', 'STANDBY')}</span>
                 </div>
-                <div style="font-size: 12px; color: #cbd5e1; margin-top: 6px;">
+                <div style="font-size: 12px; color: #FFFFFF; margin-top: 6px;">
                     {sos_status.get('message', 'Monitoring road for collision anomalies.')}
                 </div>
-                <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; border-top: 1px solid #2d3250; padding-top: 4px;">
-                    Target Emergency Mobile: <b style="color: #00e5ff; font-size: 12px;">{contact_phone}</b>
+                <div style="font-size: 11px; color: #FFFFFF; margin-top: 6px; border-top: 1px solid #FFFFFF; padding-top: 4px;">
+                    Target Emergency Mobile: <b style="color: #FFFFFF; font-size: 12px; text-decoration: underline;">{contact_phone}</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -942,12 +944,12 @@ def main():
                     <div class="{card_cls}">
                         <div style="display: flex; justify-content: space-between;">
                             <span class="{badge_cls}">{inc.get('severity')}</span>
-                            <span style="color: #94a3b8; font-size: 12px;">{inc.get('timestamp')}</span>
+                            <span style="color: #FFFFFF; font-size: 12px;">{inc.get('timestamp')}</span>
                         </div>
-                        <div style="margin-top: 4px; font-weight: 700; color: #f8fafc; font-size: 14px;">
+                        <div style="margin-top: 4px; font-weight: 700; color: #FFFFFF; font-size: 14px;">
                             {inc.get('type')}
                         </div>
-                        <div style="font-size: 12px; color: #cbd5e1; margin-top: 2px;">
+                        <div style="font-size: 12px; color: #FFFFFF; margin-top: 2px;">
                             Vehicles: #{inc.get('vehicle_ids')} &nbsp;|&nbsp; {inc.get('details')}
                         </div>
                     </div>
