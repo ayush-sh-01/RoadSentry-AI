@@ -2,8 +2,8 @@
 
 model:
   detection_model: "yolov8n.pt"  # Options: yolov8n.pt, yolov8s.pt
-  confidence_threshold: 0.20
-  iou_threshold: 0.65
+  confidence_threshold: 0.28
+  iou_threshold: 0.60
   # Target COCO vehicle classes: 1: bicycle, 2: car, 3: motorcycle, 5: bus, 7: truck
   target_classes: [1, 2, 3, 5, 7]
   device: "auto"  # 'cuda', 'cpu', or 'auto'

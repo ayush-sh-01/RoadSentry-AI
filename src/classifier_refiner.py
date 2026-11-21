@@ -52,7 +52,8 @@ class VehicleClassifierRefiner:
         all_bboxes: Optional[List[List[int]]] = None
     ) -> Tuple[str, float]:
         """
-        Refines a single detection's class label based on geometric priors and relative scene context.
+        Refines a single detection's class label based on geometric priors, 
+        aspect-ratio constraints, and perspective depth scale.
         """
         x1, y1, x2, y2 = bbox
         w = max(1, x2 - x1)
@@ -74,58 +75,70 @@ class VehicleClassifierRefiner:
 
         # ----------------------------------------------------------------------
         # RULE 1: BIKE / MOTORCYCLE DISAMBIGUATION
-        # Motorcycles and bicycles are vertically elongated (narrow width, upright rider).
-        # A true car in CCTV traffic almost never has aspect_ratio <= 0.65 unless clipped.
+        # Motorcycles and bicycles are vertically elongated or have a compact footprint.
+        # Upright rider profile: aspect_ratio is typically <= 0.75, rarely > 0.95.
         # ----------------------------------------------------------------------
         if raw_class_name == "car":
-            # Narrow vertical profile or significantly smaller than expected car size
-            if (aspect_ratio <= 0.62 and area < expected_car_area * 0.75) or (aspect_ratio <= 0.52):
+            # If predicted as 'car' but is vertically tall (narrow width) or very small
+            is_narrow_vertical = aspect_ratio <= 0.68
+            is_compact_footprint = (area < expected_car_area * 0.42 and aspect_ratio <= 0.85)
+            is_extreme_vertical = aspect_ratio <= 0.55
+
+            if is_narrow_vertical or is_compact_footprint or is_extreme_vertical:
                 refined_class = "motorcycle"
-                refined_conf = max(confidence, 0.65)
-            elif area < expected_car_area * 0.38 and aspect_ratio <= 0.80:
-                refined_class = "motorcycle"
-                refined_conf = max(confidence, 0.60)
+                refined_conf = max(confidence, 0.72)
 
         elif raw_class_name in ("motorcycle", "bicycle"):
-            # If YOLO predicted motorcycle but box is wide and large, it is actually a car
-            if aspect_ratio >= 1.15 and area > expected_car_area * 0.75:
+            # If YOLO predicted motorcycle but box is broad horizontally and bulky, it is a car
+            if aspect_ratio >= 1.10 and area > expected_car_area * 0.65:
                 refined_class = "car"
-                refined_conf = max(confidence, 0.60)
+                refined_conf = max(confidence, 0.70)
             else:
                 refined_class = "motorcycle"
 
         # ----------------------------------------------------------------------
-        # RULE 2: CAR VS TRUCK / BUS DISAMBIGUATION
-        # Trucks and buses are physically much larger (large cargo boxes, trailers).
-        # Standard passenger sedans, hatchbacks, and compact SUVs falsely labeled as "truck".
+        # RULE 2: BUS DISAMBIGUATION
+        # Buses are passenger transit vehicles with long rectangular bodies (high aspect ratio)
+        # or massive vertical box profile.
+        # ----------------------------------------------------------------------
+        if raw_class_name == "bus":
+            # If predicted as bus but too small to be one, reclassify to car or van
+            if area < expected_car_area * 1.35 and aspect_ratio < 1.70:
+                refined_class = "car"
+                refined_conf = confidence * 0.90
+        elif raw_class_name == "car":
+            # If predicted as car but has huge footprint with long profile typical of a transit bus
+            if area > expected_car_area * 2.2 and aspect_ratio >= 1.65:
+                refined_class = "bus"
+                refined_conf = max(confidence, 0.75)
+
+        # ----------------------------------------------------------------------
+        # RULE 3: TRUCK VS CAR / BUS DISAMBIGUATION
+        # Trucks have high volume, box cargo beds, trailers, or high cabins.
+        # Compact SUVs / hatchbacks / sedans should NOT be labeled trucks.
         # ----------------------------------------------------------------------
         if raw_class_name == "truck":
-            # If the box area is within normal passenger car bounds and aspect ratio is compact
-            is_passenger_scale = area < expected_car_area * 1.85
-            is_compact_shape = (0.70 <= aspect_ratio <= 1.55)
+            # Standard passenger car sizes falsely flagged as truck
+            is_passenger_scale = area < expected_car_area * 1.70
+            is_compact_shape = (0.65 <= aspect_ratio <= 1.50)
 
             if is_passenger_scale and is_compact_shape:
                 refined_class = "car"
-                refined_conf = confidence * 0.92
+                refined_conf = confidence * 0.90
+            elif area > expected_car_area * 2.5 and aspect_ratio >= 1.80:
+                # Extra-long multi-window or transit shape is often bus
+                if h < (img_h * 0.35 * depth_factor):
+                    refined_class = "bus"
 
         elif raw_class_name == "car":
-            # If YOLO predicted "car" on a massive truck, semi-trailer, or large box truck
-            is_freight_scale = area > expected_car_area * 2.8
-            is_very_tall = h > (img_h * 0.28 * depth_factor) and area > expected_car_area * 2.0
-            is_long_trailer = aspect_ratio > 1.95 and area > expected_car_area * 2.0
+            # Massive freight truck falsely labeled as car
+            is_freight_scale = area > expected_car_area * 2.6
+            is_very_tall_cabin = h > (img_h * 0.25 * depth_factor) and area > expected_car_area * 1.8
+            is_long_freight_trailer = aspect_ratio > 1.90 and area > expected_car_area * 1.9
 
-            if is_freight_scale or is_very_tall or is_long_trailer:
+            if is_freight_scale or is_very_tall_cabin or is_long_freight_trailer:
                 refined_class = "truck"
-                refined_conf = max(confidence, 0.65)
-
-        # ----------------------------------------------------------------------
-        # RULE 3: BUS DISAMBIGUATION
-        # Buses have high aspect ratio (long side profile) or high volume with large windows.
-        # ----------------------------------------------------------------------
-        if raw_class_name == "bus":
-            if area < expected_car_area * 1.30 and not (aspect_ratio > 1.85):
-                # Too small to be a public transit bus; likely a van or passenger car
-                refined_class = "car"
+                refined_conf = max(confidence, 0.70)
 
         return refined_class, refined_conf
 

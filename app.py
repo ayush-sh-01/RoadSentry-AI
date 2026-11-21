@@ -746,9 +746,13 @@ def main():
                 return
 
         # Prepare pipeline kwargs safely with parameter inspection
+        model_cfg = settings.get("model", {})
+        conf_val = float(model_cfg.get("confidence_threshold", 0.28))
+        iou_val = float(model_cfg.get("iou_threshold", 0.60))
+
         pipeline_kwargs = {
-            "conf_thresh": 0.20,
-            "iou_thresh": 0.65,
+            "conf_thresh": conf_val,
+            "iou_thresh": iou_val,
             "low_density_thresh": 2,
             "medium_density_thresh": 4,
             "accident_iou_thresh": 0.25,
